@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useRef } from 'react';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import './App.css';
 
 const App = () => {
+
+  const inputEl: any = useRef(null)
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App-Button">
+        <input ref={inputEl} type="text" />
+        <ButtonGroup variant="contained" color="secondary" aria-label="contained primary button group">
+          <Button onClick={()=>inputEl.current.focus()}>
+          ⌨
+          </Button >
+          <Button>
+          R🖱
+          </Button >
+          <Button>
+          L🖱
+          </Button >
+        </ButtonGroup>
+      </div>
     </div>
   );
 }
