@@ -1,0 +1,57 @@
+var express = require('express')
+var bodyParser = require('body-parser')
+var app = express()
+
+var robot = require("robotjs");
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use(bodyParser.json())
+
+app.use(express.static('./build'))
+
+app.get('/', function (req, res) {
+    res.send('hello world')
+})
+
+app.post('/move', function (req, res) {
+    var mouse = robot.getMousePos();
+    mouse.x += req.body.x;
+    mouse.y += req.body.y; 
+    robot.moveMouse(mouse.x, mouse.y);
+    res.send('0')
+})
+
+app.post('/scroll', function (req, res){
+    robot.scrollMouse(0, req.body.y);
+    res.send('0')
+})
+
+app.post('/click', function (req, res){
+    robot.mouseClick(req.body.button, req.body.double);
+    res.send('0')
+})
+
+let keysHelp = 0;
+app.post('/type', function (req, res){
+    console.log(req.body.key)
+
+    if(req.body.key.length > 1){
+        for(let i = 0; i < keysHelp-2; i++){
+            robot.keyTap('backspace')
+        }
+        keysHelp = 0;
+    }
+
+    robot.typeString(req.body.key);
+    res.send('0')
+    keysHelp++
+})
+
+app.post('/keytap', function (req, res){
+    console.log(req.body.key)
+    robot.keyTap(req.body.key.toLowerCase());
+    res.send('0')
+})
+
+app.listen(3002)
