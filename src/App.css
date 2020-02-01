@@ -3,15 +3,26 @@
 }
 
 .App input{
-  display: none;
+  /* display: none; */
+  position: absolute;
 }
 
 .App-Button{
-
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
 }
 
 .App-Button Button{
   padding: 10px 20px;
   font-size: 20px;
+}
+
+.Touch-Area{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(233, 233, 233);
 }
 
