@@ -14,9 +14,10 @@ const MyButton = styled(Button)({
 const App = () => {
 
   const inputEl: any = useRef(null);
+  const serverIp = window.location.href
 
   const sendRequest = (url: string, method: string, body: string) => {
-    fetch(`http://192.168.1.155:3002/${url}`, {
+    fetch(`${serverIp}${url}`, {
       method: method,
       headers: {
         'Accept': 'application/json',

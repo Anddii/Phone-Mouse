@@ -1,8 +1,7 @@
-var express = require('express')
-var bodyParser = require('body-parser')
-var app = express()
-
-var robot = require("robotjs");
+const express = require('express')
+const bodyParser = require('body-parser')
+const robot = require("robotjs");
+const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -10,48 +9,46 @@ app.use(bodyParser.json())
 
 app.use(express.static('./build'))
 
-app.get('/', function (req, res) {
-    res.send('hello world')
+app.get('/', function (req: any, res: any) {
+    res.send('0')
 })
 
-app.post('/move', function (req, res) {
-    var mouse = robot.getMousePos();
+app.post('/move', function (req: any, res: any) {
+    const mouse: any = robot.getMousePos();
     mouse.x += req.body.x;
     mouse.y += req.body.y; 
     robot.moveMouse(mouse.x, mouse.y);
     res.send('0')
 })
 
-app.post('/scroll', function (req, res){
+app.post('/scroll', function (req: any, res: any){
     robot.scrollMouse(0, req.body.y);
     res.send('0')
 })
 
-app.post('/click', function (req, res){
+app.post('/click', function (req: any, res: any){
     robot.mouseClick(req.body.button, req.body.double);
     res.send('0')
 })
 
-let keysHelp = 0;
-app.post('/type', function (req, res){
-    console.log(req.body.key)
-
+let keysHelp: number = 0;
+app.post('/type', function (req: any, res: any){
     if(req.body.key.length > 1){
-        for(let i = 0; i < keysHelp-2; i++){
+        for(let i:number = 0; i < keysHelp-2; i++){
             robot.keyTap('backspace')
         }
         keysHelp = 0;
     }
-
     robot.typeString(req.body.key);
     res.send('0')
     keysHelp++
 })
 
-app.post('/keytap', function (req, res){
+app.post('/keytap', function (req: any, res: any){
     console.log(req.body.key)
     robot.keyTap(req.body.key.toLowerCase());
     res.send('0')
 })
-
+const ip = require("ip");
+console.dir ( ip.address() );
 app.listen(3002)
