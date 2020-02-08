@@ -1,4 +1,4 @@
-### infrastructure:
+### Infrastructure:
 
 Node.js as a web server hosting a react app. React app call's Node server and sends commands.
 
