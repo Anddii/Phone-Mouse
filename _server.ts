@@ -31,21 +31,23 @@ app.post('/click', function (req: any, res: any){
     res.send('0')
 })
 
-let keysHelp: number = 0;
+let lastKey = '';
 app.post('/type', function (req: any, res: any){
     if(req.body.key.length > 1){
-        for(let i:number = 0; i < keysHelp-2; i++){
-            robot.keyTap('backspace')
-        }
-        keysHelp = 0;
+        res.send('0')
+        return
     }
+    if(lastKey === '.'){
+        lastKey = ''
+        res.send('0')
+        return
+    }
+    lastKey = req.body.key
     robot.typeString(req.body.key);
     res.send('0')
-    keysHelp++
 })
 
 app.post('/keytap', function (req: any, res: any){
-    console.log(req.body.key)
     robot.keyTap(req.body.key.toLowerCase());
     res.send('0')
 })

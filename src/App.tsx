@@ -80,7 +80,7 @@ const App = () => {
         if(touches < 2){
           sendMove(mx, my, velocity);
         }else{
-          sendWheel(mx+velocity*4, my+velocity*4)
+          sendWheel(mx*(velocity*2), my*(velocity*2))
         }
       }
     }
